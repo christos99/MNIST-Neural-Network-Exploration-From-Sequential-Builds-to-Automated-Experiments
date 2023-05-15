@@ -1,0 +1,84 @@
+```python
+import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
+from tensorflow import keras
+from keras.layers import Dense, Flatten
+from keras.models import Sequential
+from keras.utils import to_categorical
+from keras.datasets import mnist
+
+#@title Prepare MNIST data
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+num_features = 784 # data features - img shape = 28*28
+
+#@title Data Shape
+print("Xtrain Shape:", x_train.shape)
+print("Xtest Shape:", x_test.shape)
+
+print("Ytrain Shape:", y_train.shape)
+print("Ytest Shape:", y_test.shape)
+
+# We have to transform Y data to the suitable format for the Neural Network
+
+#@title Display the first six images of mnist digit database 
+fig, axes = plt.subplots(ncols=6, sharex=False, 
+    sharey=True, figsize=(15, 6))
+for i in range(6):
+    axes[i].set_title(y_train[i])
+    axes[i].imshow(x_train[i], cmap='inferno')
+    axes[i].get_xaxis().set_visible(True)
+    axes[i].get_yaxis().set_visible(True)
+plt.show()
+
+#@title Convert DATA into suitable format
+
+# Convert to float32.
+x_train, x_test = np.array(x_train, np.float32), np.array(x_test, np.float32)
+# Flatten images to 1-D vector of 784 features (28*28).
+x_train, x_test = x_train.reshape([-1, num_features]), x_test.reshape([-1, num_features])
+# Normalize images value from [0, 255] to [0, 1].
+x_train, x_test = x_train / 255., x_test / 255.
+
+#@title Create simple Neural Network model Neurons 128
+model = Sequential()
+model.add(Flatten(input_shape=(num_features, )))
+model.add(Dense(128, activation='relu'))
+model.add(Dense(10))
+
+#Compile the Neural Network
+model.compile(optimizer='SGD',loss =keras.losses.SparseCategoricalCrossentropy(from_logits = True), metrics=['accuracy'])
+
+#See the details of our architecture
+model.summary()
+
+#@title Fit the train and testing data to the Neural Network Epochs 100
+history = model.fit(x_train, y_train, validation_data = (x_test, y_test), batch_size=32, epochs=100)
+
+#@title Reprsentation of the performance with a graph of a function for 128 Neurons in first hidden layer
+plt.figure(1)
+plt.plot(history.history['accuracy'], label = 'train')
+plt.plot(history.history['val_accuracy'], label = 'test')
+plt.legend()
+plt.title('Performance on training and validation sets')
+plt.show()
+
+#@title Create simple Neural Network model neurons 256
+model = Sequential()
+model.add(Flatten(input_shape=(num_features, )))
+model.add(Dense(256, activation='relu'))
+model.add(Dense(10))
+
+#Compile the Neural Network
+model.compile(optimizer='SGD',loss =keras.losses.SparseCategoricalCrossentropy(from_logits = True), metrics=['accuracy'])
+
+#See the details of our architecture
+model.summary()
+
+#@title Fit the train and testing data to the Neural Network Epochs 50
+history = model.fit(x_train, y_train, validation_data = (x_test, y_test), batch_size=32, epochs=50)
+
+#@title Reprsentation of the performance with a graph of a function for 256 Neurons in first hidden layer
+plt.figure(2)
+plt.plot(history.history['accuracy'], label = 'train')
+plt.plot(history.history['val_accuracy
