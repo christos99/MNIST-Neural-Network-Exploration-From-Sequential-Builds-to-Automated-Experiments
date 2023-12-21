@@ -1,51 +1,44 @@
 # MNIST Neural Network Experiments
 
-This repository contains Python scripts for experimenting with different neural network configurations using the MNIST dataset of handwritten digits.
-
 ## Overview
 
-The scripts are designed to facilitate the testing of various neural network architectures and parameters on the MNIST dataset. This allows for a comparative understanding of how different configurations perform in terms of accuracy.
+The project's aim is to provide an educational and practical insight into how different neural network architectures and parameters impact the model's performance, particularly in recognizing handwritten digits from the MNIST dataset.
 
 ## Files
 
-### 1. `mnist_neural_network.py`
+### File 1: Initial Experimentation Script
 
-- **Purpose**: This script sets up a basic neural network for the MNIST dataset. It's designed to demonstrate how to load the data, prepare it, define a model, train it, and then evaluate its performance.
-- **Features**:
-    - Load and normalize MNIST data.
-    - Define and compile a neural network model.
-    - Train the model and plot training and validation accuracy.
+- **Filename**: model_builder_seq.py
+- **Purpose**: This script serves as the foundation for experimenting with neural networks on the MNIST dataset. It sequentially defines, compiles, trains, and evaluates multiple neural network models with varying architectures.
+- **Key Features**:
+  - Loads and preprocesses the MNIST data.
+  - Defines multiple neural network models with different configurations (e.g., varying numbers of neurons and layers).
+  - Each model is trained and evaluated separately, with its performance visualized using the `plt_show` function.
 
-### 2. `mnist_nn_experiments.py`
+### File 2: Configurable Model Script
 
-- **Purpose**: This script is designed to run multiple experiments with different neural network configurations. It allows testing various layer setups and optimizers.
-- **Features**:
-    - Functions to create and train models with specified configurations.
-    - Run experiments with different layer counts and neuron counts.
-    - Use different optimizers (SGD, Adam).
-    - Plot and compare the performance of different configurations.
+- **Filename**: model_builder_loop.py
+- **Purpose**: Enhances the modular approach to configuring and testing neural network models. It focuses on a single, configurable model setup, using a dictionary to define the model's architecture.
+- **Key Features**:
+  - Introduces a configuration dictionary for flexible model definition.
+  - Includes a `build_model` function to construct the model based on the given configuration.
+  - The model is compiled, trained, and its performance is visualized with a plot of training and validation accuracy.
+
+### File 3: Automated Neural Network Experiments Script
+
+- **Filename**: mnist_nn_experiments.py
+- **Purpose**: This script is an advanced version that enables automated and systematic experimentation with multiple neural network configurations.
+- **Key Features**:
+  - Functions for creating and training models (`create_model`) and running experiments (`run_experiment`) with specified configurations.
+  - Predefined list of experiments with various layer setups and optimizers (SGD, Adam) for easy comparison.
+  - Automated execution of experiments and visualization of results, allowing for a comprehensive comparison of different architectures and parameters.
 
 ## Usage
 
 1. Ensure Python and necessary libraries (TensorFlow, NumPy, Matplotlib) are installed.
-2. Run `mnist_neural_network.py` for a single model demonstration.
-3. Run `mnist_nn_experiments.py` to execute multiple experiments with various configurations.
-
-## Requirements
-
-- Python
-- TensorFlow
-- NumPy
-- Matplotlib
-
-## Experiment Configurations
-
-The `mnist_nn_experiments.py` script includes several predefined experiments. These experiments vary in the number of layers, number of neurons per layer, and the optimizer used.
+2. Start with `model_builder_loop.py` for a single model demonstration.
+3. Progress to `mnist_nn_experiments.py` to execute multiple experiments with varied configurations.
 
 ## Conclusion
 
-These scripts provide a practical way to understand and compare the performance of different neural network architectures and parameters using the MNIST dataset.
-
----
-
-Feel free to modify the scripts or add new configurations to further explore the capabilities of neural networks in digit recognition tasks.
+This project effectively demonstrates the progression from manual, sequential model training to a more structured, modular approach, and finally to an automated, scalable experimentation framework. It's an excellent resource for understanding the impact of neural network configurations on digit recognition tasks and provides a solid foundation for further exploration and learning in the field of neural networks and machine learning.
